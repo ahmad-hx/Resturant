@@ -1,0 +1,108 @@
+{
+  "restaurants": [
+    {
+      "id": "1",
+      "name": "Spice Garden",
+      "description": "Authentic Indian cuisine and biryani",
+      "cuisine": "Indian",
+      "rating": 4.5
+    },
+    {
+      "id": "2",
+      "name": "Urban Pizza",
+      "description": "Freshly baked pizzas and Italian food",
+      "cuisine": "Italian",
+      "rating": 4.3
+    },
+    {
+      "id": "3",
+      "name": "Burger House",
+      "description": "Burgers, fries and refreshing drinks",
+      "cuisine": "Fast Food",
+      "rating": 4.2
+    }
+  ],
+  "foods": [
+    {
+      "id": "1",
+      "restaurantId": "1",
+      "name": "Chicken Biryani",
+      "category": "Biryani",
+      "price": 220,
+      "available": true
+    },
+    {
+      "id": "2",
+      "restaurantId": "1",
+      "name": "Paneer Butter Masala",
+      "category": "Main Course",
+      "price": 180,
+      "available": true
+    },
+    {
+      "id": "3",
+      "restaurantId": "1",
+      "name": "Veg Biryani",
+      "category": "Biryani",
+      "price": 160,
+      "available": true
+    },
+    {
+      "id": "4",
+      "restaurantId": "2",
+      "name": "Margherita Pizza",
+      "category": "Pizza",
+      "price": 199,
+      "available": true
+    },
+    {
+      "id": "5",
+      "restaurantId": "2",
+      "name": "Farmhouse Pizza",
+      "category": "Pizza",
+      "price": 279,
+      "available": true
+    },
+    {
+      "id": "6",
+      "restaurantId": "3",
+      "name": "Classic Burger",
+      "category": "Burger",
+      "price": 149,
+      "available": true
+    }
+  ],
+  "orders": [
+    {
+      "id": "EQsq6qxEbao",
+      "restaurantName": "Spice Garden",
+      "customerName": "Ahmad Alisha",
+      "customerPhone": "8125737275",
+      "deliveryAddress": "Dwaraka Nagar",
+      "items": [
+        {
+          "id": "1",
+          "name": "Chicken Biryani",
+          "price": 220,
+          "quantity": 8
+        },
+        {
+          "id": "2",
+          "name": "Paneer Butter Masala",
+          "price": 180,
+          "quantity": 1
+        },
+        {
+          "id": "3",
+          "name": "Veg Biryani",
+          "price": 160,
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 2100,
+      "date": "10/18/2026, 12:24:48 PM",
+      "status": "Placed"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
