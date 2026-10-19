@@ -102,6 +102,24 @@
       "totalAmount": 2100,
       "date": "10/18/2026, 12:24:48 PM",
       "status": "Placed"
+    },
+    {
+      "id": "r638v1VWc5E",
+      "restaurantName": "Spice Garden",
+      "customerName": "Ahmad Alisha",
+      "customerPhone": "09347898922",
+      "deliveryAddress": "Dwaraka Nagar",
+      "items": [
+        {
+          "id": "1",
+          "name": "Chicken Biryani",
+          "price": 220,
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 220,
+      "date": "10/19/2026, 7:50:46 PM",
+      "status": "Placed"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

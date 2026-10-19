@@ -37,3 +37,18 @@ npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+## 🚀 Deployment Guide
+
+### 1. Backend Deployment (Render)
+1. Create a new **Web Service** on [Render](https://render.com) connected to this repository.
+2. Set Build Command: `npm install`
+3. Set Start Command: `npm start`
+4. Deploy the service and copy your public URL (e.g. `https://your-app.onrender.com`).
+
+### 2. Frontend Deployment (Vercel)
+1. Import this repository in [Vercel](https://vercel.com).
+2. Under **Project Settings > Environment Variables**, add:
+   - **Key**: `VITE_API_URL`
+   - **Value**: `https://your-app.onrender.com` (your Render backend URL)
+3. Deploy or Redeploy to build with the live API URL.
