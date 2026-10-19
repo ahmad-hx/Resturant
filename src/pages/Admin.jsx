@@ -50,7 +50,7 @@ function Admin({ onRestaurantsUpdated }) {
                 setFoodForm((prev) => ({ ...prev, restaurantId: restData[0].id }));
             }
         } catch (err) {
-            setError("Could not load data from JSON Server. Please check if the server is running.");
+            setError("Could not load data from the backend server. Please check if the server is running.");
             console.error(err);
         } finally {
             setLoading(false);

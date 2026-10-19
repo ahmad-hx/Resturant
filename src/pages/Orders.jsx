@@ -17,7 +17,7 @@ function Orders({ onBrowseRestaurants }) {
                 : [];
             setOrders(sorted);
         } catch (err) {
-            setError("Unable to load orders. Please make sure JSON Server is running.");
+            setError("Unable to load orders. Please make sure the backend server is running.");
             console.error(err);
         } finally {
             setLoading(false);
@@ -36,7 +36,7 @@ function Orders({ onBrowseRestaurants }) {
                 }
             } catch (err) {
                 if (isMounted) {
-                    setError("Unable to load orders. Please make sure JSON Server is running.");
+                    setError("Unable to load orders. Please make sure the backend server is running.");
                     console.error(err);
                 }
             } finally {

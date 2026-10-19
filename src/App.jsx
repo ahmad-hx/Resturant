@@ -28,7 +28,7 @@ function App() {
       setRestaurants(data || []);
       setError("");
     } catch (err) {
-      setError("Could not load restaurants. Please ensure JSON Server is running on port 3000.");
+      setError("Could not load restaurants. Please ensure the backend server is running.");
       console.error(err);
     } finally {
       setLoading(false);
@@ -46,7 +46,7 @@ function App() {
         }
       } catch (err) {
         if (isMounted) {
-          setError("Could not load restaurants. Please ensure JSON Server is running on port 3000.");
+          setError("Could not load restaurants. Please ensure the backend server is running.");
           console.error(err);
         }
       } finally {
@@ -157,7 +157,7 @@ function App() {
       setCurrentView("confirmation");
     } catch (err) {
       console.error(err);
-      alert("Failed to place order. Please check that JSON Server is running.");
+      alert("Failed to place order. Please check that the backend server is running.");
     } finally {
       setPlacingOrder(false);
     }

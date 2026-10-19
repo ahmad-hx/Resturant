@@ -1,5 +1,6 @@
-
-const API_URL = "http://localhost:3000";
+const rawApiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
+// Remove any trailing slashes to keep endpoint URL paths consistent
+const API_URL = rawApiUrl.replace(/\/+$/, "");
 
 async function request(url, options = {}) {
     const response = await fetch(url, options);
