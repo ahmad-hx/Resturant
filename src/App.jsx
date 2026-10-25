@@ -23,13 +23,15 @@ function App() {
 
   // Load restaurants
   async function loadRestaurants() {
+    setLoading(true);
+    setError("");
     try {
       const data = await restaurantsAPI.getAll();
-      setRestaurants(data || []);
+      setRestaurants(Array.isArray(data) ? data : []);
       setError("");
     } catch (err) {
-      setError("Could not load restaurants. Please ensure the backend server is running.");
-      console.error(err);
+      setError(err.message || "Could not load restaurants. Please ensure the backend server is running.");
+      console.error("Failed to load restaurants:", err);
     } finally {
       setLoading(false);
     }
@@ -42,12 +44,12 @@ function App() {
       try {
         const data = await restaurantsAPI.getAll();
         if (isMounted) {
-          setRestaurants(data || []);
+          setRestaurants(Array.isArray(data) ? data : []);
         }
       } catch (err) {
         if (isMounted) {
-          setError("Could not load restaurants. Please ensure the backend server is running.");
-          console.error(err);
+          setError(err.message || "Could not load restaurants. Please ensure the backend server is running.");
+          console.error("Failed to load restaurants on mount:", err);
         }
       } finally {
         if (isMounted) {
@@ -293,31 +295,47 @@ function App() {
                 <p className="eyebrow">EXPLORE</p>
                 <h2>Restaurants near you</h2>
               </div>
-              <span className="restaurant-count-badge">
-                {restaurants.length} restaurants available
-              </span>
+              {!loading && !error && (
+                <span className="restaurant-count-badge">
+                  {restaurants.length} {restaurants.length === 1 ? "restaurant" : "restaurants"} available
+                </span>
+              )}
             </div>
 
             {loading && <p className="loading-text">Loading restaurants from server...</p>}
-            {error && <p className="error">{error}</p>}
+            {error && (
+              <div className="error-box">
+                <p className="error">{error}</p>
+                <button
+                  type="button"
+                  className="secondary-button"
+                  onClick={loadRestaurants}
+                  style={{ marginTop: "8px" }}
+                >
+                  🔄 Retry Connection
+                </button>
+              </div>
+            )}
 
             {!loading && !error && restaurants.length === 0 && (
               <p className="empty-text">No restaurants available yet. Use Admin Dashboard to add some.</p>
             )}
 
-            <div className="restaurant-grid">
-              {restaurants.map((restaurant) => (
-                <div key={restaurant.id} className="restaurant-card-wrapper">
-                  <RestaurantCard restaurant={restaurant} />
-                  <button
-                    className="open-menu-button"
-                    onClick={() => handleSelectRestaurant(restaurant)}
-                  >
-                    View Menu →
-                  </button>
-                </div>
-              ))}
-            </div>
+            {!loading && !error && (
+              <div className="restaurant-grid">
+                {restaurants.map((restaurant) => (
+                  <div key={restaurant.id} className="restaurant-card-wrapper">
+                    <RestaurantCard restaurant={restaurant} />
+                    <button
+                      className="open-menu-button"
+                      onClick={() => handleSelectRestaurant(restaurant)}
+                    >
+                      View Menu →
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
         </main>
       )}

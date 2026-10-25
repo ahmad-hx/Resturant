@@ -50,8 +50,8 @@ function Admin({ onRestaurantsUpdated }) {
                 setFoodForm((prev) => ({ ...prev, restaurantId: restData[0].id }));
             }
         } catch (err) {
-            setError("Could not load data from the backend server. Please check if the server is running.");
-            console.error(err);
+            setError(err.message || "Could not load data from the backend server. Please check if the server is running.");
+            console.error("Failed to load admin data:", err);
         } finally {
             setLoading(false);
         }
@@ -81,8 +81,8 @@ function Admin({ onRestaurantsUpdated }) {
                 }
             } catch (err) {
                 if (isMounted) {
-                    setError("Could not load data from JSON Server. Please check if the server is running.");
-                    console.error(err);
+                    setError(err.message || "Could not load data from the backend server. Please check if the server is running.");
+                    console.error("Failed to load admin data on mount:", err);
                 }
             }
         }

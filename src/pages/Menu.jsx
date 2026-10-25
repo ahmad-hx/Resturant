@@ -10,26 +10,52 @@ function Menu({ restaurant, onBack, onAddToCart, onViewCart, cartCount = 0 }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
+    async function loadFoods() {
+        setLoading(true);
+        setError("");
+        try {
+            const data = await foodsAPI.getAll();
+            const restaurantFoods = (Array.isArray(data) ? data : []).filter(
+                (food) => String(food.restaurantId) === String(restaurant.id)
+            );
+            setFoods(restaurantFoods);
+        } catch (err) {
+            setError(err.message || "Unable to load the food menu.");
+            console.error("Failed to load food menu:", err);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
-        async function loadFoods() {
+        let isMounted = true;
+
+        async function fetchMenu() {
             try {
                 const data = await foodsAPI.getAll();
-
-                const restaurantFoods = data.filter(
-                    (food) =>
-                        String(food.restaurantId) === String(restaurant.id)
-                );
-
-                setFoods(restaurantFoods);
+                if (isMounted) {
+                    const restaurantFoods = (Array.isArray(data) ? data : []).filter(
+                        (food) => String(food.restaurantId) === String(restaurant.id)
+                    );
+                    setFoods(restaurantFoods);
+                }
             } catch (err) {
-                setError("Unable to load the food menu.");
-                console.error(err);
+                if (isMounted) {
+                    setError(err.message || "Unable to load the food menu.");
+                    console.error("Failed to load food menu on mount:", err);
+                }
             } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         }
 
-        loadFoods();
+        fetchMenu();
+
+        return () => {
+            isMounted = false;
+        };
     }, [restaurant.id]);
 
     const categories = [
@@ -95,8 +121,20 @@ function Menu({ restaurant, onBack, onAddToCart, onViewCart, cartCount = 0 }) {
                     ))}
                 </div>
 
-                {loading && <p>Loading menu...</p>}
-                {error && <p className="error">{error}</p>}
+                {loading && <p className="loading-text">Loading menu...</p>}
+                {error && (
+                    <div className="error-box">
+                        <p className="error">{error}</p>
+                        <button
+                            type="button"
+                            className="secondary-button"
+                            onClick={loadFoods}
+                            style={{ marginTop: "8px" }}
+                        >
+                            🔄 Retry Menu
+                        </button>
+                    </div>
+                )}
 
                 {!loading && !error && filteredFoods.length === 0 && (
                     <p>No matching food items found.</p>

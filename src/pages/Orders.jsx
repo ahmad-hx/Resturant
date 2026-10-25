@@ -17,8 +17,8 @@ function Orders({ onBrowseRestaurants }) {
                 : [];
             setOrders(sorted);
         } catch (err) {
-            setError("Unable to load orders. Please make sure the backend server is running.");
-            console.error(err);
+            setError(err.message || "Unable to load orders. Please make sure the backend server is running.");
+            console.error("Failed to load orders:", err);
         } finally {
             setLoading(false);
         }
@@ -36,8 +36,8 @@ function Orders({ onBrowseRestaurants }) {
                 }
             } catch (err) {
                 if (isMounted) {
-                    setError("Unable to load orders. Please make sure the backend server is running.");
-                    console.error(err);
+                    setError(err.message || "Unable to load orders. Please make sure the backend server is running.");
+                    console.error("Failed to load orders on mount:", err);
                 }
             } finally {
                 if (isMounted) {
@@ -111,7 +111,19 @@ function Orders({ onBrowseRestaurants }) {
             </div>
 
             {loading && <p className="loading-text">Loading orders from server...</p>}
-            {error && <p className="error">{error}</p>}
+            {error && (
+                <div className="error-box">
+                    <p className="error">{error}</p>
+                    <button
+                        type="button"
+                        className="secondary-button"
+                        onClick={loadOrders}
+                        style={{ marginTop: "8px" }}
+                    >
+                        🔄 Retry Orders
+                    </button>
+                </div>
+            )}
 
             {!loading && !error && orders.length === 0 && (
                 <div className="empty-box">

@@ -50,5 +50,10 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 1. Import this repository in [Vercel](https://vercel.com).
 2. Under **Project Settings > Environment Variables**, add:
    - **Key**: `VITE_API_URL`
-   - **Value**: `https://your-app.onrender.com` (your Render backend URL)
-3. Deploy or Redeploy to build with the live API URL.
+   - **Value**: `https://your-app.onrender.com` (your actual Render backend URL without trailing slash)
+   - Ensure you select **Production** and **Preview** environments.
+3. **Redeploy** the latest deployment on Vercel (or trigger a new build) so that Vite injects `VITE_API_URL` during `npm run build`.
+
+> **Note on Render Free Tier:**  
+> Free Web Services on Render sleep after 15 minutes of inactivity. When visiting the site after an idle period, the first request may take 30–50 seconds while the backend wakes up. Use the "🔄 Retry Connection" button on the portal to reload once awake.
+
